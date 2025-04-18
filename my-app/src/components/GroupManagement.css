@@ -1,0 +1,81 @@
+.group-management-container {
+    font-family: sans-serif;
+    padding: 20px;
+    max-width: 800px; 
+    margin: 0 auto;    
+}
+
+.group-management-container h2, .group-management-container h3 {
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ddd; 
+    padding-bottom: 5px;
+}
+
+.group-settings, .group-list, .add-student-section, .manage-members-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.group-settings label, .add-student-section label {
+    display: block; 
+    margin-bottom: 5px;
+}
+
+.group-settings input[type="text"],
+.group-settings input[type="number"],
+.group-settings select,
+.group-settings textarea
+ {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+
+.create-group-button, .add-manually-button, .add-randomly-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.add-randomly-button{
+    background-color: red;
+}
+
+.create-group-button:hover, .add-button:hover {
+    opacity: 0.8; 
+}
+
+.group-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.group-list li {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+.group-list li:last-child {
+    border-bottom: none; 
+}
+.manage-members-section table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.manage-members-section th,
+.manage-members-section td
+{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.manage-members-section th {
+    background-color: #f2f2f2;
+}

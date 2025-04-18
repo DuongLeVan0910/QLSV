@@ -1,0 +1,7 @@
+{
+    "mssv": "DH521014657",
+    "hoTen": "Qu\u00e1ch Th\u00e1i H\u00f9ng",
+    "khoa": "CNTT",
+    "lop": "D21_TH02",
+    "ngaySinh": "2025-04-05"
+}

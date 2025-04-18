@@ -1,0 +1,285 @@
+/* attendance.css */
+.attendance-container {
+    font-family: 'Arial', sans-serif;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #e0f7e9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Ngày giờ điểm danh */
+.datetime-section {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Tìm kiếm sinh viên */
+.search-section {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+    border-color: #4ade80;
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.35);
+}
+
+.attendance-table-wrapper {
+    overflow-x: auto;
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Cột "Tên SV" căn trái để dễ đọc */
+th:nth-child(2),
+td:nth-child(2) {
+    text-align: left;
+}
+
+/* Phân bổ chiều rộng cho các cột */
+th, td {
+    width: 10%;
+}
+
+/* Cột "Mã SV" */
+th:nth-child(1),
+td:nth-child(1) {
+    width: 15%;
+}
+
+/* Cột "Tên SV" rộng hơn */
+th:nth-child(2),
+td:nth-child(2) {
+    width: 10%;
+}
+
+/* Cột "Trạng Thái" hẹp hơn để gần "Tên SV" */
+th:nth-child(3),
+td:nth-child(3) {
+    width: 10%;
+}
+
+/* Cột "Ngày Giờ Có Mặt" */
+th:nth-child(4),
+td:nth-child(4) {
+    width: 15%;
+}
+
+/* Cột "Tổng Buổi Đi Học" */
+th:nth-child(5),
+td:nth-child(5) {
+    width: 15%;
+}
+
+/* Cột "% Tham Gia" */
+th:nth-child(6),
+td:nth-child(6) {
+    width: 10%;
+}
+
+/* Cột "Hành Động" rộng hơn để chứa 3 nút */
+th:nth-child(7),
+td:nth-child(7) {
+    width: 25%;
+}
+
+th {
+    background-color: #4ade80;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+td {
+    font-size: 14px;
+    color: #333;
+}
+
+.present {
+    color: #4ade80;
+    font-weight: bold;
+}
+
+.absent {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    min-height: 40px;
+    flex-wrap: nowrap;
+    width: 100%;
+    margin-left: 110px; 
+}
+
+.action-btn {
+    padding: 8px 6px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    color: white;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    min-width: 60px; /* Giảm min-width để vừa vặn */
+    max-width: 60px;
+    flex: 1;
+}
+
+.action-btn:hover {
+    opacity: 0.9;
+}
+
+.absent-btn {
+    background-color: #e74c3c;
+}
+
+.present-btn {
+    background-color: #4ade80;
+}
+
+.history-btn {
+    background-color: #3498db; /* Màu xanh dương cho nút Lịch Sử */
+}
+
+/* Trạng thái active khi nút được chọn */
+.action-btn.active {
+    opacity: 0.6;
+    font-weight: bold;
+}
+
+.no-data {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Lịch sử điểm danh */
+.history-section {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+}
+
+.history-section h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.history-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.history-section li {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    th, td {
+        padding: 8px 4px;
+        font-size: 11px;
+    }
+
+    .action-btn {
+        padding: 6px 4px;
+        font-size: 11px;
+        min-width: 50px;
+        max-width: 50px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .action-buttons {
+        gap: 2px;
+        flex-wrap: nowrap;
+    }
+
+    .search-input {
+        max-width: 100%;
+    }
+
+    .history-section h3 {
+        font-size: 14px;
+    }
+
+    .history-section li {
+        font-size: 12px;
+    }
+
+    th:nth-child(4),
+    td:nth-child(4),
+    th:nth-child(5),
+    td:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(6) {
+        display: none;
+    }
+
+    th, td {
+        width: auto;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2),
+    th:nth-child(7),
+    td:nth-child(7) {
+        width: auto;
+    }
+
+    th:nth-child(7),
+    td:nth-child(7) {
+        width: 40%;
+    }
+}
