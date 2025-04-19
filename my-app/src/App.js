@@ -15,15 +15,15 @@ import Home from "./components/Home";
 import GroupManagement from "./components/GroupManagement";
 import LoginPage from "./components/login";
 import Register from "./components/Register";
-// import AddStudent from "./components/Addstudent";
-// import Attendance from "./components/attendance";
-// import EditStudent from "./components/EditStudent";
-// import StudentHome from "./components/StudentHome";
-// import StudentProfile from "./components/StudentProfile";
-// import ClassSessions from "./components/ClassSessions";
-// import StudentAttendance from "./components/StudentAttendance";
-// import StudentSchedule from "./components/StudentSchedule";
-// import StudentGroup from "./components/StudentGroup"; // Thêm import mới
+import AddStudent from "./components/Addstudent";
+import Attendance from "./components/attendance";
+import EditStudent from "./components/EditStudent";
+import StudentHome from "./components/StudentHome";
+import StudentProfile from "./components/StudentProfile";
+import ClassSessions from "./components/ClassSessions";
+import StudentAttendance from "./components/StudentAttendance";
+import StudentSchedule from "./components/StudentSchedule";
+import StudentGroup from "./components/StudentGroup"; // Thêm import mới
 
 // Định nghĩa ProtectedRoute
 function ProtectedRoute({ children, allowedRole }) {
@@ -79,7 +79,7 @@ function AppContent() {
             path="/addstudent"
             element={
               <ProtectedRoute allowedRole="admin">
-                {/* <AddStudent /> */}
+                <AddStudent />
               </ProtectedRoute>
             }
           />
@@ -87,7 +87,7 @@ function AppContent() {
             path="/attendance"
             element={
               <ProtectedRoute allowedRole="admin">
-                {/* <Attendance /> */}
+                { <Attendance /> }
               </ProtectedRoute>
             }
           />
@@ -95,7 +95,7 @@ function AppContent() {
             path="/editstudent/:mssv"
             element={
               <ProtectedRoute allowedRole="admin">
-                {/* <EditStudent /> */}
+                <EditStudent />
               </ProtectedRoute>
             }
           />
@@ -103,7 +103,7 @@ function AppContent() {
             path="/class-management"
             element={
               <ProtectedRoute allowedRole="admin">
-                {/* <ClassSessions /> */}
+                <ClassSessions />
               </ProtectedRoute>
             }
           />
@@ -113,7 +113,7 @@ function AppContent() {
             path="/student/home"
             element={
               <ProtectedRoute allowedRole="student">
-                {/* <StudentHome /> */}
+                <StudentHome />
               </ProtectedRoute>
             }
           />
@@ -121,7 +121,7 @@ function AppContent() {
             path="/student/profile"
             element={
               <ProtectedRoute allowedRole="student">
-                {/* <StudentProfile /> */}
+                <StudentProfile />
               </ProtectedRoute>
             }
           />
@@ -129,7 +129,7 @@ function AppContent() {
             path="/student/attendance"
             element={
               <ProtectedRoute allowedRole="student">
-                {/* <StudentAttendance /> */}
+                { <StudentAttendance />}
               </ProtectedRoute>
             }
           />
@@ -137,7 +137,7 @@ function AppContent() {
             path="/student/schedule"
             element={
               <ProtectedRoute allowedRole="student">
-                {/* <StudentSchedule /> */}
+                <StudentSchedule />
               </ProtectedRoute>
             }
           />
@@ -145,7 +145,7 @@ function AppContent() {
             path="/student/group"
             element={
               <ProtectedRoute allowedRole="student">
-                {/* <StudentGroup /> */}
+                <StudentGroup />
               </ProtectedRoute>
             }
           />

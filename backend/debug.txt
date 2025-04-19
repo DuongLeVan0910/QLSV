@@ -1,0 +1,7 @@
+{
+    "mssv": "DH52107510",
+    "hoTen": "Vo Trung Kien",
+    "khoa": "CNTT",
+    "lop": "D21_TH05",
+    "ngaySinh": "2003-08-01"
+}

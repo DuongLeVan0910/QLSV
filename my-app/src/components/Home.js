@@ -40,7 +40,7 @@ function Home() {
     if (window.confirm(`Bạn có chắc muốn xóa sinh viên có MSSV: ${mssv}?`)) {
       try {
         const response = await fetch(
-          "http://localhost/Home_React_baoanh/backend/delete_students.php",
+          "http://localhost/doanne/backend/delete_students.php",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
