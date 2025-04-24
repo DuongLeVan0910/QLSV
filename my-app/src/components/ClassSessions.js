@@ -10,8 +10,12 @@ const ClassSessions = () => {
     const [formData, setFormData] = useState({
         date: '',
         time_slot: '',
-        room: ''
+        room: '',
+        start_date: '',
+        end_date: '',
+        subject_name: ''
     });
+    
     const [editingSession, setEditingSession] = useState(null);
     const [editMode, setEditMode] = useState(null); // 'remove' hoặc 'add'
     const [loading, setLoading] = useState(false);
@@ -59,9 +63,54 @@ const ClassSessions = () => {
         }
     };
 
+    // const handleAddSession = async (e) => {
+    //     e.preventDefault();
+    //     setLoading(true);
+    //     try {
+    //         const response = await fetch('http://localhost/doanne/backend/class_sessions.php', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Accept': 'application/json',
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({
+    //                 date: formData.date,
+    //                 time_slot: formData.time_slot,
+    //                 room: formData.room,
+    //                 students: selectedStudents
+    //             }),
+    //         });
+    //         const data = await response.json();
+    //         if (data.success) {
+    //             setShowAddForm(false);
+    //             setFormData({ date: '', time_slot: '', room: '' });
+    //             setSelectedStudents([]);
+    //             await fetchSessions();
+    //             await fetchStudents();
+    //             toast.success('Thêm ca học thành công');
+    //         } else {
+    //             console.error('Lỗi khi thêm ca học:', data.message);
+    //             toast.error(data.message || 'Lỗi khi thêm ca học');
+    //         }
+    //     } catch (error) {
+    //         console.error('Lỗi khi thêm ca học:', error);
+    //         toast.error('Không thể thêm ca học');
+    //     }
+    //     setLoading(false);
+    // };
     const handleAddSession = async (e) => {
         e.preventDefault();
         setLoading(true);
+        console.log('Dữ liệu gửi lên server:', {
+            date: formData.date,                // Ngày tạo
+            subject_name: formData.subject_name, // Tên môn học
+            start_date: formData.start_date,     // Ngày bắt đầu
+            end_date: formData.end_date,         // Ngày kết thúc
+            time_slot: formData.time_slot,       // Ca học
+            room: formData.room,                 // Phòng học
+            students: selectedStudents           // Sinh viên đã chọn
+        });
+        
         try {
             const response = await fetch('http://localhost/doanne/backend/class_sessions.php', {
                 method: 'POST',
@@ -70,16 +119,26 @@ const ClassSessions = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    date: formData.date,
-                    time_slot: formData.time_slot,
-                    room: formData.room,
-                    students: selectedStudents
+                    date: formData.date,                // Ngày tạo
+                    subject_name: formData.subject_name, // Tên môn học
+                    start_date: formData.start_date,     // Ngày bắt đầu
+                    end_date: formData.end_date,         // Ngày kết thúc
+                    time_slot: formData.time_slot,       // Ca học
+                    room: formData.room,                 // Phòng học
+                    students: selectedStudents           // Sinh viên đã chọn
                 }),
             });
+    
+            // Kiểm tra trạng thái phản hồi từ server
+            if (!response.ok) {
+                throw new Error('Lỗi khi gửi yêu cầu');
+            }
+    
             const data = await response.json();
+    
             if (data.success) {
                 setShowAddForm(false);
-                setFormData({ date: '', time_slot: '', room: '' });
+                setFormData({ date: '', subject_name: '', start_date: '', end_date: '', time_slot: '', room: '' });
                 setSelectedStudents([]);
                 await fetchSessions();
                 await fetchStudents();
@@ -94,6 +153,7 @@ const ClassSessions = () => {
         }
         setLoading(false);
     };
+    
 
     const handleUpdateSession = async (sessionId, updatedStudents) => {
         setLoading(true);
@@ -200,19 +260,19 @@ const ClassSessions = () => {
 
     return (
         <div className="class-sessions-container">
-            <h2>Quản Lý Ca Học</h2>
+            <h2>Quản Lý Lớp Học</h2>
 
             <button
                 className="add-session-btn"
                 onClick={() => setShowAddForm(!showAddForm)}
             >
-                {showAddForm ? 'Hủy' : 'Thêm Ca Học Mới'}
+                {showAddForm ? 'Hủy' : 'Thêm Lớp học mới'}
             </button>
 
             {showAddForm && (
                 <form className="add-session-form" onSubmit={handleAddSession}>
                     <div className="form-group">
-                        <label>Ngày:</label>
+                        <label>Ngày tạo:</label>
                         <input
                             type="date"
                             value={formData.date}
@@ -220,6 +280,34 @@ const ClassSessions = () => {
                             required
                         />
                     </div>
+                    <div className="form-group">
+                        <label>Tên môn học:</label>
+                        <input
+                            type="text"
+                            value={formData.subject_name}
+                            onChange={(e) => setFormData({ ...formData, subject_name: e.target.value })}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Ngày bắt đầu:</label>
+                        <input
+                            type="date"
+                            value={formData.start_date}
+                            onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Ngày kết thúc:</label>
+                        <input
+                            type="date"
+                            value={formData.end_date}
+                            onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
+                            required
+                        />
+                    </div>
+
                     <div className="form-group">
                         <label>Ca học:</label>
                         <select
@@ -265,7 +353,7 @@ const ClassSessions = () => {
                         </div>
                     </div>
                     <button type="submit" className="submit-btn" disabled={loading}>
-                        {loading ? 'Đang Xử Lý...' : 'Thêm Ca Học'}
+                        {loading ? 'Đang Xử Lý...' : 'Thêm Lớp Học'}
                     </button>
                 </form>
             )}
@@ -274,7 +362,10 @@ const ClassSessions = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Ngày</th>
+                            <th>Ngày tạo</th>
+                            <th>Môn học</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
                             <th>Ca học</th>
                             <th>Phòng học</th>
                             <th>Sinh viên</th>
@@ -285,6 +376,9 @@ const ClassSessions = () => {
                         {sessions.map(session => (
                             <tr key={session.id}>
                                 <td>{session.date}</td>
+                                <td>{session.subject_name}</td>
+                                <td>{session.start_date}</td>
+                                <td>{session.end_date}</td>
                                 <td>{session.time_slot}</td>
                                 <td>{session.room}</td>
                                 <td>
