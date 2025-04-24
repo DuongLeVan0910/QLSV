@@ -179,68 +179,376 @@ const GroupManagement = () => {
         });
     }, []);
 
+    // const handleCreateGroup = useCallback(async (e) => {
+    //     e.preventDefault();
+    
+    //     if (!groupSettings.sessionId) {
+    //         alert('Vui lòng chọn ca học');
+    //         return;
+    //     }
+        
+    //     const payload = {
+    //         session_id: groupSettings.sessionId,
+    //         mode: groupSettings.groupMode,
+    //         min_members: groupSettings.minMembers,
+    //         max_members: groupSettings.maxMembers
+    //     };
+    //     if ((groupSettings.groupMode === 'teacher' ) && selectedStudents.length === 0) {
+    //         alert('Vui lòng chọn sinh viên cho nhóm');
+    //         return;
+    //     }
+    
+    //     if (groupSettings.groupMode === 'student') {
+    //         // Tính số nhóm cần tạo dựa trên số sinh viên và maxMembers
+    //         const totalStudents = students.length;
+    //         const groupsNeeded = Math.ceil(totalStudents / groupSettings.maxMembers);
+    //         payload.number_of_groups = groupsNeeded; // Gửi số nhóm đến backend
+    //     }
+
+    
+    //     if (groupSettings.groupMode !== 'random') {
+    //         payload.students = selectedStudents;
+    //     }
+    
+    //     console.log("Sending to API:", payload);
+    
+    //     setLoading(true);
+    //     try {
+    //         const response = await fetch('http://localhost/doanne/backend/create_group.php', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(payload)
+    //         });
+    
+    //         const data = await response.json();
+    //         console.log("📦 Dữ liệu nhận từ API:", data);
+    //         if (data.message) {
+    //             alert(data.message);
+    //         }
+    
+    //         if (data.success) {
+    //             alert('Tạo nhóm thành công');
+    //             setGroupSettings(prev => ({
+    //                 ...prev,
+    //                 sessionId: selectedSession
+    //             }));
+    //             setSelectedStudents([]);
+    //             await fetchGroups(selectedSession);
+    //             await fetchStudents(selectedSession);
+    //         } else {
+    //             alert(data.message || 'Không thể tạo nhóm');
+    //         }
+    
+    //     } catch (error) {
+    //         console.error('Error creating group:', error);
+    //         alert('Không thể tạo nhóm. Vui lòng thử lại sau.');
+    //     }
+    //     setLoading(false);
+    // }, [groupSettings, selectedStudents, selectedSession, fetchGroups, fetchStudents]);
+    // const handleCreateGroup = useCallback(async (e) => {
+    //     e.preventDefault();
+    
+    //     if (!groupSettings.sessionId) {
+    //         toast.error('Vui lòng chọn ca học');
+    //         return;
+    //     }
+    //     const fetchGroups = async (sessionId) => {
+    //         const res = await fetch(`http://localhost/doanne/backend/get_groups.php?session_id=${sessionId}`);
+    //         const data = await res.json();
+    
+    //         // Kiểm tra nếu dữ liệu trả về không phải mảng
+    //         if (!Array.isArray(data)) {
+    //             console.error('Dữ liệu trả về không phải mảng:', data);
+    //             toast.error('Lỗi khi lấy thông tin nhóm');
+    //             return [];
+    //         }
+    
+    //         setGroups(data); // cập nhật state
+    //         return data;
+    //     };
+          
+    //     const currentGroups = await fetchGroups(groupSettings.sessionId);
+
+    //     // Kiểm tra xem danh sách sinh viên có tồn tại không
+    //     if (!students || students.length === 0) {
+    //         toast.error('Không có sinh viên để chia nhóm');
+    //         return;
+    //     }
+    //     const ungroupedStudents = students.filter(sv => !sv.group_id);
+
+    //     if (ungroupedStudents.length === 0) {
+    //         toast.info('Tất cả sinh viên đã được chia nhóm');
+    //         return;
+    //     }
+    //     let payload = {
+    //         session_id: groupSettings.sessionId,
+    //         mode: groupSettings.groupMode,
+    //         min_members: groupSettings.minMembers,
+    //         max_members: groupSettings.maxMembers,
+    //     };
+    
+    //     if (groupSettings.groupMode === 'student') {
+    //         const total = ungroupedStudents.length;
+    
+    //         if (total < groupSettings.minMembers) {
+    //             toast.error(`Cần ít nhất ${groupSettings.minMembers} sinh viên để tạo nhóm`);
+    //             return;
+    //         }
+    
+    //         // Tính tổng slot hiện có
+    //         const currentCapacity = currentGroups
+    //             .filter(g => g.mode === 'student')
+    //             .reduce((acc, g) => acc + g.max_members, 0);
+    
+    //         if (currentCapacity >= total) {
+    //             toast.info('Đã có đủ nhóm để chứa tất cả sinh viên.');
+    //             return;
+    //         }
+    
+    //         const groupsNeeded = Math.ceil((total - currentCapacity) / groupSettings.maxMembers);
+    //         if (groupsNeeded <= 0) {
+    //             toast.info('Không cần tạo thêm nhóm nào.');
+    //             return;
+    //         }
+    
+    //         payload.number_of_groups = groupsNeeded;
+    //     }
+        
+    
+    //     if (groupSettings.groupMode === 'teacher') {
+    //         const validSelected = selectedStudents.filter(sv => !sv.group_id); // loại bỏ sv đã có nhóm
+    //         if (validSelected.length === 0) {
+    //             toast.error('Tất cả sinh viên đã có nhóm hoặc chưa chọn sinh viên hợp lệ');
+    //             return;
+    //         }
+    //         payload.students = validSelected;
+    //     }
+    
+    //     // if (groupSettings.groupMode !== 'random' && !payload.students) {
+    //     //     payload.students = ungroupedStudents.map(sv => sv.id); // nếu cần gửi danh sách id
+    //     // }
+            
+    //     if (groupSettings.groupMode !== 'random') {
+    //         payload.students = selectedStudents;
+    //     }
+    
+    //     console.log("Sending to API:", payload);
+    
+    //     setLoading(true);
+    //     try {
+    //         const res = await fetch('http://localhost/doanne/backend/create_group.php', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(payload),
+    //         });
+    //         const data = await res.json();
+    //         console.log("📦 Dữ liệu nhận từ API:", data);
+
+    //         if (data.success) {
+    //             alert(data.message);
+
+    //             setGroupSettings(prev => ({
+    //                 ...prev,
+    //                 sessionId: selectedSession,
+    //             }));
+    //             setSelectedStudents([]);
+    //             await fetchGroups(selectedSession);
+    //             await fetchStudents(selectedSession);
+    //         } else {
+    //             alert('Lỗi: ' + data.message);
+    //         }
+    //     } catch (error) {
+    //         console.error('Lỗi khi tạo nhóm:', error);
+    //         toast.error('Không thể tạo nhóm. Vui lòng thử lại sau.');
+    //     }
+    //     setLoading(false);
+    // }, [groupSettings, students, selectedStudents, selectedSession, fetchGroups, fetchStudents]);
+    // const handleCreateGroup = useCallback(async (e) => {
+    //     e.preventDefault();
+      
+    //     if (!groupSettings.sessionId) {
+    //       alert('Vui lòng chọn ca học');
+    //       return;
+    //     }
+      
+    //     // Lọc danh sách sinh viên chưa có nhóm
+    //     const ungroupedStudents = students.filter(sv => !sv.group_id);
+    //     if (ungroupedStudents.length === 0) {
+    //       alert('Tất cả sinh viên đã được chia nhóm');
+    //       return;
+    //     }
+      
+    //     // Chuẩn bị payload
+    //     const payload = {
+    //       session_id: groupSettings.sessionId,
+    //       mode:         groupSettings.groupMode,
+    //       min_members:  groupSettings.minMembers,
+    //       max_members:  groupSettings.maxMembers,
+    //     };
+      
+    //     // Chế độ giáo viên
+    //     if (groupSettings.groupMode === 'teacher') {
+    //       if (selectedStudents.length === 0) {
+    //         alert('Vui lòng chọn sinh viên cho nhóm');
+    //         return;
+    //       }
+    //       payload.students = selectedStudents;
+    //     }
+      
+    //     // Chế độ sinh viên: chỉ tạo nhóm rỗng dựa trên số ungroupedStudents
+    //     if (groupSettings.groupMode === 'student') {
+    //       const total = ungroupedStudents.length;
+    //       const groupsNeeded = Math.ceil(total / groupSettings.maxMembers);
+    //       payload.number_of_groups = groupsNeeded; 
+    //     }
+      
+    //     // Chế độ student hoặc teacher đều gửi students (student mode có thể bỏ nếu backend ko cần)
+    //     if (groupSettings.groupMode !== 'random') {
+    //       payload.students = selectedStudents;
+    //     }
+      
+    //     console.log('Sending to API:', payload);
+      
+    //     setLoading(true);
+    //     try {
+    //       const res = await fetch(
+    //         'http://localhost/doanne/backend/create_group.php',
+    //         {
+    //           method:  'POST',
+    //           headers: { 'Content-Type': 'application/json' },
+    //           body:    JSON.stringify(payload),
+    //         }
+    //       );
+    //       const data = await res.json();
+    //       console.log('📦 Response:', data);
+      
+    //       // Hiện mọi message từ back
+    //       if (data.message) {
+    //         alert(data.message);
+    //       }
+      
+    //       if (data.success) {
+    //         // Reload lại nhóm + sinh viên để ungroupedStudents cập nhật
+    //         setSelectedStudents([]);
+    //         await fetchGroups(groupSettings.sessionId);
+    //         await fetchStudents(groupSettings.sessionId);
+    //       }
+    //     } catch (err) {
+    //       console.error('Error creating group:', err);
+    //       alert('Không thể tạo nhóm. Vui lòng thử lại sau.');
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    //   }, [
+    //     groupSettings,
+    //     students,
+    //     selectedStudents,
+    //     fetchGroups,
+    //     fetchStudents,
+    //   ]);
     const handleCreateGroup = useCallback(async (e) => {
         e.preventDefault();
-    
-        if (!groupSettings.sessionId) {
-            alert('Vui lòng chọn ca học');
-            return;
+      
+        const { sessionId, groupMode, minMembers, maxMembers } = groupSettings;
+        if (!sessionId) {
+          alert('Vui lòng chọn ca học');
+          return;
         }
-    
-        if ((groupSettings.groupMode === 'teacher' || groupSettings.groupMode === 'student') && selectedStudents.length === 0) {
+      
+        // === students state đã là "chưa có nhóm" vì bạn filter ở fetchStudents ===
+        if (groupMode === 'student' || groupMode === 'teacher') {
+          if (!students || students.length === 0) {
+            alert('Không còn sinh viên nào chưa có nhóm');
+            return;
+          }
+        }
+      
+        // Chuẩn bị payload cơ bản
+        const payload = {
+          session_id: sessionId,
+          mode:       groupMode,
+          min_members: minMembers,
+          max_members: maxMembers,
+        };
+      
+        // === Random mode: không thêm gì, backend auto chia ===
+      
+        // === Teacher mode: cần chọn các sinh viên cụ thể ===
+        if (groupMode === 'teacher') {
+          if (selectedStudents.length === 0) {
             alert('Vui lòng chọn sinh viên cho nhóm');
             return;
+          }
+          payload.students = selectedStudents;
         }
-    
-        const payload = {
-            session_id: groupSettings.sessionId,
-            mode: groupSettings.groupMode,
-            min_members: groupSettings.minMembers,
-            max_members: groupSettings.maxMembers
-        };
-    
-        if (groupSettings.groupMode !== 'random') {
-            payload.students = selectedStudents;
+      
+        // === Student mode: chỉ tạo nhóm rỗng, không gán sinh viên ===
+        if (groupMode === 'student') {
+          // tổng sinh viên còn lại
+          const total = students.length;
+      
+          if (total < minMembers) {
+            alert(`Cần ít nhất ${minMembers} sinh viên để tạo nhóm`);
+            return;
+          }
+      
+          // số nhóm trống cần tạo
+          const groupsNeeded = Math.ceil(total / maxMembers);
+      
+          // đếm xem state.groups đã có bao nhiêu nhóm student
+          const existingEmptyCount = groups
+            .filter(g => g.mode === 'student')
+            .length;
+      
+          if (existingEmptyCount >= groupsNeeded) {
+            alert('Đã có đủ nhóm rỗng cho sinh viên tự chọn, không thể tạo thêm.');
+            return;
+          }
+      
+          // chỉ tạo thêm số thiếu
+          payload.number_of_groups = groupsNeeded - existingEmptyCount;
         }
-    
-        console.log("Sending to API:", payload);
-    
+      
+        console.log('Sending to API:', payload);
         setLoading(true);
+      
         try {
-            const response = await fetch('http://localhost/doanne/backend/create_group.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload)
-            });
-    
-            const data = await response.json();
-            console.log("📦 Dữ liệu nhận từ API:", data);
-            if (data.message) {
-                alert(data.message);
-            }
-    
-            if (data.success) {
-                alert('Tạo nhóm thành công');
-                setGroupSettings(prev => ({
-                    ...prev,
-                    sessionId: selectedSession
-                }));
-                setSelectedStudents([]);
-                await fetchGroups(selectedSession);
-                await fetchStudents(selectedSession);
-            } else {
-                alert(data.message || 'Không thể tạo nhóm');
-            }
-    
-        } catch (error) {
-            console.error('Error creating group:', error);
-            alert('Không thể tạo nhóm. Vui lòng thử lại sau.');
+          const res  = await fetch('http://localhost/doanne/backend/create_group.php', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(payload),
+          });
+          const data = await res.json();
+          console.log('📦 Response:', data);
+      
+          if (data.message) alert(data.message);
+          if (data.success) {
+            // reload lại nhóm và sinh viên
+            await fetchGroups(sessionId);
+            await fetchStudents(sessionId);
+            setSelectedStudents([]);
+          }
+        } catch (err) {
+          console.error('Error creating group:', err);
+          alert('Không thể tạo nhóm. Vui lòng thử lại sau.');
+        } finally {
+          setLoading(false);
         }
-        setLoading(false);
-    }, [groupSettings, selectedStudents, selectedSession, fetchGroups, fetchStudents]);
-
+      
+      }, [
+        groupSettings,
+        students,
+        selectedStudents,
+        groups,         // chúng ta dùng state.groups để đếm existingEmptyCount
+        fetchGroups,
+        fetchStudents
+      ]);
+      
+      
     const handleUpdateGroup = useCallback(async (groupId, updatedStudents) => {
         setLoading(true);
         try {

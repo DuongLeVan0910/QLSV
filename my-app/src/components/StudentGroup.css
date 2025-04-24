@@ -162,3 +162,100 @@
   color: #6b7280;
   display: block;
 }
+
+/* Kiểu cho phần chọn nhóm */
+.join-group {
+  margin-top: 30px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.join-group h3 {
+  font-size: 1.25rem;
+  color: #1f2937;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #3b82f6;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+.group-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.group-item:hover {
+  background-color: #e0f2fe;
+}
+
+.group-item div {
+  flex: 1;
+}
+
+.group-item strong {
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.group-item p {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin: 4px 0;
+}
+
+.group-item button {
+  padding: 8px 16px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.group-item button:hover {
+  background-color: #2563eb;
+}
+
+.group-item button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Kiểu cho nút Rời Nhóm */
+.leave-group-button {
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.leave-group-button:hover {
+  background-color: #dc2626;
+}
+
+.leave-group-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
